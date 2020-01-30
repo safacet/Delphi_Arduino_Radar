@@ -1,0 +1,95 @@
+object Form1: TForm1
+  Left = 0
+  Top = 0
+  Caption = 'Form1'
+  ClientHeight = 381
+  ClientWidth = 597
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  OnCreate = FormCreate
+  PixelsPerInch = 96
+  TextHeight = 13
+  object Chart1: TChart
+    Left = 8
+    Top = 8
+    Width = 490
+    Height = 321
+    Title.Text.Strings = (
+      'TChart')
+    BottomAxis.Axis.EndStyle = esRound
+    BottomAxis.Items = {
+      0D0000000113466F726D61742E5472616E73706172656E637902020454657874
+      060232340556616C75650500000000000000C003400001045465787406023232
+      0556616C75650500000000000000B0034000010454657874060232300556616C
+      75650500000000000000A0034000010454657874060231380556616C75650500
+      00000000000090034000010454657874060231360556616C7565050000000000
+      000080034000010454657874060231340556616C75650500000000000000E002
+      4000010454657874060231320556616C75650500000000000000C00240000104
+      54657874060231300556616C75650500000000000000A0024000010454657874
+      0601380556616C75650500000000000000800240000104546578740601360556
+      616C75650500000000000000C00140000104546578740601340556616C756505
+      00000000000000800140000104546578740601320556616C7565050000000000
+      00008000400001045465787406013000}
+    View3D = False
+    TabOrder = 0
+    DefaultCanvas = 'TGDIPlusCanvas'
+    ColorPaletteIndex = 13
+    object Series1: TFastLineSeries
+      Selected.Hover.Visible = True
+      LinePen.Color = 10708548
+      TreatNulls = tnDontPaint
+      XValues.Name = 'X'
+      XValues.Order = loAscending
+      YValues.Name = 'Y'
+      YValues.Order = loNone
+      object TSmoothingFunction
+        CalcByValue = False
+        Period = 1.000000000000000000
+        Factor = 8
+      end
+    end
+  end
+  object Button1: TButton
+    Left = 504
+    Top = 120
+    Width = 75
+    Height = 25
+    Caption = 'Settings'
+    TabOrder = 1
+    OnClick = Button1Click
+  end
+  object Button2: TButton
+    Left = 504
+    Top = 168
+    Width = 75
+    Height = 25
+    Caption = 'Open'
+    TabOrder = 2
+    OnClick = Button2Click
+  end
+  object ComPort1: TComPort
+    BaudRate = br9600
+    Port = 'COM1'
+    Parity.Bits = prNone
+    StopBits = sbOneStopBit
+    DataBits = dbEight
+    DiscardNull = True
+    Events = [evRxChar, evTxEmpty, evRxFlag, evRing, evBreak, evCTS, evDSR, evError, evRLSD, evRx80Full]
+    FlowControl.OutCTSFlow = False
+    FlowControl.OutDSRFlow = False
+    FlowControl.ControlDTR = dtrDisable
+    FlowControl.ControlRTS = rtsDisable
+    FlowControl.XonXoffOut = False
+    FlowControl.XonXoffIn = False
+    StoredProps = [spBasic]
+    TriggersOnRxChar = True
+    OnRxChar = OnRxChar
+    Left = 368
+    Top = 16
+  end
+end

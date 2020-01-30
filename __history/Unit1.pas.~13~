@@ -1,0 +1,182 @@
+unit Unit1;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, VclTee.TeeGDIPlus, CPort, Vcl.StdCtrls,
+  VCLTee.TeEngine, Vcl.ExtCtrls, VCLTee.TeeProcs, VCLTee.Chart, VCLTee.Series,
+  VCLTee.TeeSpline, Vcl.Samples.Spin;
+
+type
+  TForm1 = class(TForm)
+    Button1: TButton;
+    Button2: TButton;
+    ComPort1: TComPort;
+    PaintBox1: TPaintBox;
+    Label1: TLabel;
+    Label2: TLabel;
+    SpinEdit1: TSpinEdit;
+    Button3: TButton;
+    Lhiz: TLabel;
+    procedure Button1Click(Sender: TObject);
+    procedure Button2Click(Sender: TObject);
+    procedure OnRxChar(Sender: TObject; Count: Integer);
+    procedure Paint(Sender: TObject);
+    procedure Button3Click(Sender: TObject);
+    
+
+
+
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Form1: TForm1;
+
+implementation
+
+{$R *.dfm}
+const
+CenterX:integer=250;
+CenterY:integer=250;
+
+var
+ileri:bool=True;
+uzaklik:integer;
+X:integer=250;
+Y:integer=250;
+aci:integer=0;
+radar:bool=True;
+
+//function NumaraAyir(str:string):string;
+//var
+//a:char;
+//begin
+//  for a in str do
+//  if a in ['0'..'9'] then
+//  Result:= Result + a;
+//end;
+
+
+
+procedure TForm1.Button1Click(Sender: TObject);
+begin
+ComPort1.ShowSetupDialog;
+end;
+
+procedure TForm1.Button2Click(Sender: TObject);
+begin
+if ComPort1.Connected then
+begin
+ComPort1.Close;
+Label1.Visible:=False;
+Button2.Caption:= 'Ac';
+aci:=0;
+ileri:=True;
+radar:= True;
+ComPort1.WriteStr('190');
+end
+else
+begin
+ComPort1.Open;
+Label1.Visible:=True;
+Button2.Caption:= 'Kapat';
+end;
+end;
+
+
+
+procedure TForm1.Button3Click(Sender: TObject);
+begin
+if radar then
+begin
+  aci:= SpinEdit1.Value;
+  radar:= False;
+  Button3.Caption:= 'Radar';
+  ComPort1.WriteStr(IntToStr(aci));
+  Lhiz.Visible:=True;
+end
+else
+begin
+  aci:=0;
+  radar:= True;
+  Button3.Caption:= 'Hýz Ölç';
+end;
+end;
+
+procedure TForm1.OnRxChar(Sender: TObject; Count: Integer);
+const
+sure:double=0.010;
+
+var
+str:string;
+onceki:integer;
+hiz:double;
+
+begin
+ComPort1.ReadStr(str,Count);
+str:= str.Trim;
+uzaklik:= StrToInt(str);
+if uzaklik > 200 then
+uzaklik:=200;
+PaintBox1.Invalidate;
+
+if radar then
+begin
+
+  if ileri then
+    begin
+     aci:=aci+10;
+    if aci=190 then
+      begin
+     aci:=180;
+     ileri:=False;
+     end;
+   end
+  else
+  begin
+    aci:=aci-10;
+    if aci=-10 then
+     begin
+       aci:=0;
+       ileri:=True;
+     end;
+  end;
+end
+else
+begin
+
+ try
+   hiz:= (uzaklik - onceki)/ sure;
+ except
+  hiz:=0;
+ end;
+ hiz:= hiz*sqr(10,-2);
+ onceki:= uzaklik;
+ Lhiz.Caption:= FloatToStr(hiz) + ' m/s';
+end;
+
+X:=Round(Cos(aci*pi/180)*uzaklik)+CenterX;
+Y:=Round(-Sin(aci*pi/180)*uzaklik)+CenterY;
+Label1.Left:= Round(Cos(aci*pi/180)*200)+250;
+Label1.Top:= Round(-Sin(aci*pi/180)*200)+235;
+Label1.Caption:= IntToStr(uzaklik);
+Label2.Caption:= IntToStr(aci) + ' °';
+Paint(Sender);
+end;
+
+
+
+procedure TForm1.Paint(Sender: TObject);
+
+begin
+PaintBox1.Canvas.Pen.Width:=3;
+PaintBox1.Canvas.MoveTo(CenterX,CenterY);
+PaintBox1.Canvas.LineTo(X,Y);
+end;
+
+end.

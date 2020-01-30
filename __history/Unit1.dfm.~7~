@@ -1,0 +1,96 @@
+object Form1: TForm1
+  Left = 0
+  Top = 0
+  Caption = 'Radar'
+  ClientHeight = 381
+  ClientWidth = 597
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -13
+  Font.Name = 'Tahoma'
+  Font.Style = [fsBold]
+  OldCreateOrder = False
+  Visible = True
+  PixelsPerInch = 96
+  TextHeight = 16
+  object PaintBox1: TPaintBox
+    Left = 0
+    Top = 0
+    Width = 481
+    Height = 313
+    OnPaint = Paint
+  end
+  object Label1: TLabel
+    Left = 456
+    Top = 256
+    Width = 8
+    Height = 16
+    Caption = '0'
+    Visible = False
+  end
+  object Label2: TLabel
+    Left = 250
+    Top = 255
+    Width = 17
+    Height = 16
+    Caption = '0 '#176
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+  end
+  object Button1: TButton
+    Left = 504
+    Top = 120
+    Width = 75
+    Height = 25
+    Caption = 'Ayarlar'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 0
+    OnClick = Button1Click
+  end
+  object Button2: TButton
+    Left = 504
+    Top = 168
+    Width = 75
+    Height = 25
+    Caption = 'Ac'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 1
+    OnClick = Button2Click
+  end
+  object ComPort1: TComPort
+    BaudRate = br9600
+    Port = 'COM4'
+    Parity.Bits = prNone
+    StopBits = sbOneStopBit
+    DataBits = dbEight
+    DiscardNull = True
+    Events = [evRxChar, evTxEmpty, evRxFlag, evRing, evBreak, evCTS, evDSR, evError, evRLSD, evRx80Full]
+    FlowControl.OutCTSFlow = False
+    FlowControl.OutDSRFlow = False
+    FlowControl.ControlDTR = dtrDisable
+    FlowControl.ControlRTS = rtsDisable
+    FlowControl.XonXoffOut = False
+    FlowControl.XonXoffIn = False
+    StoredProps = [spBasic]
+    TriggersOnRxChar = True
+    SyncMethod = smWindowSync
+    OnRxChar = OnRxChar
+    Left = 512
+    Top = 16
+  end
+end

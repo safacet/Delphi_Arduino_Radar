@@ -1,0 +1,150 @@
+object Form1: TForm1
+  Left = 0
+  Top = 0
+  Caption = 'Radar'
+  ClientHeight = 381
+  ClientWidth = 624
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -14
+  Font.Name = 'Tahoma'
+  Font.Style = [fsBold]
+  OldCreateOrder = False
+  Visible = True
+  PixelsPerInch = 96
+  TextHeight = 17
+  object PaintBox1: TPaintBox
+    Left = 0
+    Top = 0
+    Width = 482
+    Height = 314
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
+    OnPaint = Paint
+  end
+  object Label1: TLabel
+    Left = 456
+    Top = 256
+    Width = 9
+    Height = 17
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
+    Caption = '0'
+    Visible = False
+  end
+  object Label2: TLabel
+    Left = 250
+    Top = 256
+    Width = 19
+    Height = 17
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
+    Caption = '0 '#176
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -14
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+  end
+  object Lhiz: TLabel
+    Left = 232
+    Top = 328
+    Width = 41
+    Height = 17
+    Caption = '0 m/s'
+    Visible = False
+  end
+  object Button1: TButton
+    AlignWithMargins = True
+    Left = 504
+    Top = 32
+    Width = 76
+    Height = 26
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
+    Caption = 'Ayarlar'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -14
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 0
+    OnClick = Button1Click
+  end
+  object Button2: TButton
+    Left = 504
+    Top = 80
+    Width = 76
+    Height = 26
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
+    Caption = 'A'#231
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -15
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 1
+    OnClick = Button2Click
+  end
+  object SpinEdit1: TSpinEdit
+    Left = 504
+    Top = 219
+    Width = 76
+    Height = 27
+    Increment = 10
+    MaxValue = 180
+    MinValue = 0
+    TabOrder = 2
+    Value = 0
+  end
+  object Button3: TButton
+    Left = 505
+    Top = 256
+    Width = 75
+    Height = 25
+    Caption = 'H'#305'z '#214'l'#231
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -15
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 3
+    OnClick = Button3Click
+  end
+  object ComPort1: TComPort
+    BaudRate = br9600
+    Port = 'COM4'
+    Parity.Bits = prNone
+    StopBits = sbOneStopBit
+    DataBits = dbEight
+    DiscardNull = True
+    Events = [evRxChar, evTxEmpty, evRxFlag, evRing, evBreak, evCTS, evDSR, evError, evRLSD, evRx80Full]
+    FlowControl.OutCTSFlow = False
+    FlowControl.OutDSRFlow = False
+    FlowControl.ControlDTR = dtrEnable
+    FlowControl.ControlRTS = rtsDisable
+    FlowControl.XonXoffOut = False
+    FlowControl.XonXoffIn = False
+    StoredProps = [spBasic]
+    TriggersOnRxChar = True
+    OnRxChar = OnRxChar
+    Left = 512
+    Top = 16
+  end
+end
